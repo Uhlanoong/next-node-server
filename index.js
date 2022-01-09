@@ -110,11 +110,12 @@ async function run() {
         const id = req.params.id;
         const fishtype = req.params.fishtype;
         const age = req.params.age;
-        const bodyweight = req.params.bodyWeight;
+        const bodyweight = req.params.bodyweight;
+        console.log(id,fishtype,age,bodyweight);
         const query = {_id: ObjectId(id)};
         const newValues ={$set:{fishtype:fishtype, age: age, bodyweight: bodyweight}}
         const resultTwo = await dailygrowthCollection.updateOne(query,newValues)
-        console.log('Updating the data with id', result);
+        console.log('Updating the data with id', resultTwo);
         res.json(resultTwo)
       })
       // UPDATE API of Feed-size
