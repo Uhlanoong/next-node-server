@@ -94,12 +94,13 @@ async function run() {
       })
 
       // UPDATE API of Species
-      app.put('/species/:id/:fish/:oxygen',async(req,res)=>{
+      app.put('/species/:id/:fish/:oxygen/:layer',async(req,res)=>{
         const id = req.params.id;
         const fish = req.params.fish;
         const oxygen = req.params.oxygen;
+        const layer = req.params.layer;
         const query = {_id: ObjectId(id)};
-        const newValues ={$set:{fish:fish,oxygendemand:oxygen}}
+        const newValues ={$set:{fish:fish,oxygendemand:oxygen,layer:layer}}
         const result = await speciesCollection.updateOne(query,newValues)
         console.log('Updating the data with id', result);
         res.json(result)
