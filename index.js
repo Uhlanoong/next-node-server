@@ -22,6 +22,22 @@ async function run() {
       const speciesCollection = database.collection("species");
       const dailygrowthCollection = database.collection("dailygrowth");
       const feedsizeCollection = database.collection("feedsize");
+      const speciesReferenceCollection = database.collection("speciesReference");
+
+
+      // Save Species Ref
+      app.post('/species-reference', async (req, res)=>{
+        const newFeed = req.body;
+        const resultThree = await speciesReferenceCollection.insertOne(newFeed);
+        res.json(resultThree);
+      });
+
+      // // List Species Ref
+      app.get('/species-reference', async(req,res)=>{
+        const cursor = speciesReferenceCollection.find({});
+        const species = await cursor.toArray();
+        res.send(species)
+      })
 
       
       // GET API OF SPECIES
@@ -111,7 +127,7 @@ async function run() {
         const fishtype = req.params.fishtype;
         const age = req.params.age;
         const bodyweight = req.params.bodyweight;
-        console.log(id,fishtype,age,bodyweight);
+        console.log(id,fishtype , age, bodyweight);
         const query = {_id: ObjectId(id)};
         const newValues ={$set:{fishtype:fishtype, age: age, bodyweight: bodyweight}}
         const resultTwo = await dailygrowthCollection.updateOne(query,newValues)
