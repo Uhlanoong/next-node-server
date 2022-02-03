@@ -109,6 +109,15 @@ async function run() {
         res.json(resultThree)
       })
 
+      // DELETE API OF SPECIES REFERENCE
+      app.delete('/species-reference/:id', async(req,res)=>{
+        const id = req.params.id;
+        const query = {_id: ObjectId(id)};
+        const result = await speciesReferenceCollection.deleteOne(query);
+        console.log('Deleting the data with id', result);
+        res.json(result)
+      })
+
       // UPDATE API of Species
       app.put('/species/:id/:fish/:oxygen/:layer',async(req,res)=>{
         const id = req.params.id;
